@@ -1,7 +1,7 @@
 # cargo-make-ctrl-c
 dummy project to demonstrate an issue for cargo-make
 
-Contents of Makefile.toml
+### Contents of Makefile.toml
 
 ```
 # run cargo make debug-1, 2, or 3 to launch GDB
@@ -22,4 +22,14 @@ args = ["-c", "rust-gdb ./target/debug/cargo-make-ctrl-c"]
 [tasks.debug-3]
 dependencies = ["build"]
 script = ["rust-gdb ./target/debug/cargo-make-ctrl-c"]
+```
+
+### Update
+
+```
+# this task runs GDB correctly
+# it abuses the script command which swallows Ctrl-C
+[tasks.debug-4]
+dependencies = ["build"]
+script = ["script -q /dev/null -c 'rust-gdb ./target/debug/cargo-make-ctrl-c'"]
 ```

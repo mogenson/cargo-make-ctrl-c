@@ -16,3 +16,9 @@ args = ["-c", "rust-gdb ./target/debug/cargo-make-ctrl-c"]
 [tasks.debug-3]
 dependencies = ["build"]
 script = ["rust-gdb ./target/debug/cargo-make-ctrl-c"]
+
+# this task runs GDB correctly
+# it abuses the script command which swallows Ctrl-C
+[tasks.debug-4]
+dependencies = ["build"]
+script = ["script -q /dev/null -c 'rust-gdb ./target/debug/cargo-make-ctrl-c'"]
